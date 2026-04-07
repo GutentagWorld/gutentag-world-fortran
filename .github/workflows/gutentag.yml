@@ -1,0 +1,22 @@
+name: Gutentag, World!
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - run: sudo apt-get install -y gfortran
+
+      - name: Run
+        run: gfortran gutentag.f90 -o gutentag && ./gutentag
+
+      - name: Verify output
+        run: bash test.sh
